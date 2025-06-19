@@ -1,0 +1,110 @@
+* {
+  /* border: 1px solid black; */
+  font-family: "Noto Sans";
+  box-sizing: border-box;
+}
+
+header {
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
+  border-bottom: 1px solid black;
+}
+
+.logo {
+  padding: 6px 0px 14px 0px;
+  margin: 0px;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.item-img {
+  border-radius: 4px;
+  background-color: #f2f2f2;
+  padding: 28px 12px;
+  width: 220px;
+}
+
+.cards {
+  max-width: 222px;
+  border-radius: 4px;
+  display: inline-block;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 50px;
+}
+
+.cards:hover {
+  border: 1px solid black;
+}
+
+.data {
+  display: flex;
+  padding: 0px 4px 8px 8px;
+  flex-direction: column;
+}
+
+.card-btn {
+  background-color: black;
+  color: white;
+  width: fit-content;
+  padding: 6px 14px;
+  border: 0px;
+  border-radius: 50px;
+  margin-top: 8px;
+}
+
+.card-btn:hover {
+  background-color: rgb(72, 72, 72);
+  cursor: pointer;
+}
+
+p {
+  /* padding: px; */
+  margin: 8px 0px 0px 0px;
+}
+
+.itemsList {
+  /* height: 300px; */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 40px clamp(50px, 25vw, 500px) 0px;
+  justify-items: center;
+}
+
+.cart {
+  display: flex;
+  flex-direction: column;
+}
+
+.align {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cart-items {
+  height: 100px;
+
+  border: 1px solid black;
+}
+
+.pay-btn {
+  background-color: black;
+  cursor: pointer;
+  color: white;
+  font-size: 1rem;
+  width: fit-content;
+  padding: 12px 24px;
+  border: 0px;
+  border-radius: 50px;
+  margin-top: 8px;
+}
+
+.pay-btn-div {
+  display: flex;
+  justify-content: center;
+}
