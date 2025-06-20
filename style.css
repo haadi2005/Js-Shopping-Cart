@@ -1,12 +1,10 @@
 * {
-  /* border: 1px solid black; */
   font-family: "Noto Sans";
   box-sizing: border-box;
 }
 
 header {
   display: flex;
-  /* align-items: center; */
   justify-content: center;
   border-bottom: 1px solid black;
 }
@@ -59,20 +57,19 @@ body {
 }
 
 .card-btn:hover {
-  background-color: rgb(72, 72, 72);
+  background-color: rgb(46, 46, 46);
   cursor: pointer;
 }
 
 p {
-  /* padding: px; */
   margin: 8px 0px 0px 0px;
 }
 
 .itemsList {
-  /* height: 300px; */
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  margin: 40px clamp(50px, 25vw, 500px) 0px;
+  margin-top: 40px;
+  /* grid-template-columns: repeat(3, 300px); */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   justify-items: center;
 }
 
@@ -104,7 +101,32 @@ p {
   margin-top: 8px;
 }
 
+.pay-btn:hover {
+  background-color: rgb(46, 46, 46);
+}
+
 .pay-btn-div {
   display: flex;
   justify-content: center;
+}
+
+/* Laptop */
+@media (max-width: 1460px) {
+  .itemsList {
+    grid-template-columns: repeat(3, minmax(200px, 1fr));
+  }
+}
+
+/* Tablet */
+@media (max-width: 770px) {
+  .itemsList {
+    grid-template-columns: repeat(2, minmax(200px, 1fr));
+  }
+}
+
+/* Phone */
+@media (max-width: 490px) {
+  .itemsList {
+    grid-template-columns: repeat(1, minmax(200px, 1fr));
+  }
 }
