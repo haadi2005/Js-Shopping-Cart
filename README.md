@@ -1,10 +1,9 @@
 # Js Shopping Cart 🛒
 
-🚧 Work in Progress  
-- [x] UI complete  
-- [ ] Add to Cart logic  
-- [ ] Quantity update  
-- [ ] Remove from cart  
+🚧 Work in Progress
+
+- [x] UI complete
+- [x] Add to Cart logic
+- [ ] Quantity update
+- [ ] Remove from cart
 - [ ] localStorage sync
-
-
