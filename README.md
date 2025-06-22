@@ -6,4 +6,4 @@
 - [x] Add to Cart logic
 - [ ] Quantity update
 - [ ] Remove from cart
-- [ ] localStorage sync
+- [x] localStorage sync
