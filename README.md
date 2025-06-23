@@ -4,6 +4,6 @@
 
 - [x] UI complete
 - [x] Add to Cart logic
-- [ ] Quantity update
+- [x] Quantity update
 - [ ] Remove from cart
 - [x] localStorage sync
