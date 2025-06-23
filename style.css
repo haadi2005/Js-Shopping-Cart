@@ -85,6 +85,9 @@ p {
 
 .cart-items {
   display: block;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  padding: 10px 0px 0px;
 }
 
 .item-cart {
@@ -113,7 +116,8 @@ p {
   display: flex;
 }
 
-.qty-btn {
+.qtyMinusBtn,
+.qtyAddBtn {
   border: 0px;
   padding: 0px 12px;
   border-radius: 4px;
