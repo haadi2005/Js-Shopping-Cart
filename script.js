@@ -2,12 +2,30 @@ const item_container = document.querySelector(".itemsList");
 const cart_container = document.querySelector(".cart-items");
 
 const items = [
-  { id: 1, name: "Jordan Retro 3 OG", price: 200, img: "./Imgs/1.png" },
-  { id: 2, name: "Jordan AJ 4 Retro OG", price: 160, img: "./Imgs/2.png" },
-  { id: 3, name: "Jordan Spizike Low", price: 180, img: "./Imgs/3.png" },
-  { id: 4, name: "Jordan Spizike Low", price: 165, img: "./Imgs/4.png" },
-  { id: 5, name: "Jordan AJ 1 Low SE", price: 79, img: "./Imgs/5.png" },
-  { id: 6, name: "Jordan MVP", price: 119, img: "./Imgs/6.png" },
+  { id: 1, name: "Jordan Retro 3 OG", price: 200, img: "./Imgs/1.png", qty: 1 },
+  {
+    id: 2,
+    name: "Jordan AJ 4 Retro OG",
+    price: 160,
+    img: "./Imgs/2.png",
+    qty: 1,
+  },
+  {
+    id: 3,
+    name: "Jordan Spizike Low",
+    price: 180,
+    img: "./Imgs/3.png",
+    qty: 1,
+  },
+  {
+    id: 4,
+    name: "Jordan Spizike Low",
+    price: 165,
+    img: "./Imgs/4.png",
+    qty: 1,
+  },
+  { id: 5, name: "Jordan AJ 1 Low SE", price: 79, img: "./Imgs/5.png", qty: 1 },
+  { id: 6, name: "Jordan MVP", price: 119, img: "./Imgs/6.png", qty: 1 },
 ];
 
 const cart = [];
@@ -55,15 +73,15 @@ function renderUi() {
     .map((item) => {
       return `<div class="item-cart">
     <img class="item-img-cart" src="${item.img}" />
-    <div class="data-cart">
-    <p>${item.name}</p>
-    <p>$${item.price}</p>
-    <span class="qty">
-    <button class="qty-btn">-</button>
-    <p class="qty-num">1</p>
-    <button class="qty-btn">+</button>
-    </span>
-    </div>
+     <div class="data-cart">
+       <p>${item.name}</p>
+       <p>$${item.price}</p>
+      <span class="qty">
+       <button class="qtyMinusBtn" data-cartitemid="${item.id}">-</button>
+       <p class="qty-num">${item.qty}</p>
+       <button class="qtyAddBtn" data-cartitemid="${item.id}">+</button>
+      </span>
+     </div>
     </div>`;
     })
     .join("");
@@ -75,9 +93,38 @@ item_container.addEventListener("click", (e) => {
   // Ignores clicks that are not on "Add to cart" btn
   // stops event bubbling
   if (!e.target.classList.contains("card-btn")) return;
-
-  let data_id = e.target.dataset.id;
+  // targets the data-id from (items) html
+  const data_id = e.target.dataset.id;
   addItem(data_id);
+  renderUi();
+  saveItems();
+});
+
+// Add & Subtract Cart item qty
+cart_container.addEventListener("click", (e) => {
+  // targets the data-cartitemid from (cart items) html
+  const cartItemId = e.target.dataset.cartitemid;
+
+  // Targets the qtyAddBtn from (cart items) html
+  if (e.target.classList.contains("qtyAddBtn")) {
+    // .find() searches the cart array for the item whose id matches the data-cartItemId from the clicked button. This lets us identify which cart item to update when the + or - button is pressed.
+    const foundCartItem = cart.find((cartItem) => {
+      return cartItem.id === parseInt(cartItemId);
+    });
+
+    // if foundCartItem has obj(item) increment++ the qty of item(obj)
+    if (foundCartItem) foundCartItem.qty++;
+  }
+
+  if (e.target.classList.contains("qtyMinusBtn")) {
+    const foundCartItem = cart.find((cartItem) => {
+      return cartItem.id === parseInt(cartItemId);
+    });
+
+    // if if foundCartItem has obj(item) & its greater then 1 then decrement-- qty of item(obj)
+    if (foundCartItem && foundCartItem.qty > 1) foundCartItem.qty--;
+  }
+
   renderUi();
   saveItems();
 });
