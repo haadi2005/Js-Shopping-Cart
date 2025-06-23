@@ -5,5 +5,6 @@
 - [x] UI complete
 - [x] Add to Cart logic
 - [x] Quantity update
-- [ ] Remove from cart
+- [x] Remove from cart
+- [ ] Total price calculator 
 - [x] localStorage sync
