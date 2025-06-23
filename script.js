@@ -1,5 +1,6 @@
 const item_container = document.querySelector(".itemsList");
 const cart_container = document.querySelector(".cart-items");
+const cart_text = document.querySelector(".align");
 
 const items = [
   { id: 1, name: "Jordan Retro 3 OG", price: 200, img: "./Imgs/1.png", qty: 1 },
@@ -28,7 +29,7 @@ const items = [
   { id: 6, name: "Jordan MVP", price: 119, img: "./Imgs/6.png", qty: 1 },
 ];
 
-const cart = [];
+let cart = [];
 loadItems();
 
 function loadItems() {
@@ -72,17 +73,19 @@ function renderUi() {
   const html = cart
     .map((item) => {
       return `<div class="item-cart">
-    <img class="item-img-cart" src="${item.img}" />
-     <div class="data-cart">
-       <p>${item.name}</p>
-       <p>$${item.price}</p>
-      <span class="qty">
-       <button class="qtyMinusBtn" data-cartitemid="${item.id}">-</button>
-       <p class="qty-num">${item.qty}</p>
-       <button class="qtyAddBtn" data-cartitemid="${item.id}">+</button>
-      </span>
-     </div>
-    </div>`;
+        <img class="item-img-cart" src="${item.img}" />
+        <div class="data-cart">
+          <p>${item.name}</p>
+          <p>$${item.price}</p>
+          <span class="qty">
+            <button class="qtyMinusBtn" data-cartitemid="${item.id}">-</button>
+            <p class="qty-num">${item.qty}</p>
+            <button class="qtyAddBtn" data-cartitemid="${item.id}">+</button>
+          </span>
+          <button class="deleteBtn"><img data-delitem="${item.id}" class="delIcon"
+          src="./Imgs/delete.svg" alt="Del"></button>
+        </div>
+      </div>`;
     })
     .join("");
 
@@ -100,31 +103,49 @@ item_container.addEventListener("click", (e) => {
   saveItems();
 });
 
-// Add & Subtract Cart item qty
 cart_container.addEventListener("click", (e) => {
   // targets the data-cartitemid from (cart items) html
   const cartItemId = e.target.dataset.cartitemid;
 
-  // Targets the qtyAddBtn from (cart items) html
+  // ADD (+) QUANTITY LOGIC
   if (e.target.classList.contains("qtyAddBtn")) {
     // .find() searches the cart array for the item whose id matches the data-cartItemId from the clicked button. This lets us identify which cart item to update when the + or - button is pressed.
     const foundCartItem = cart.find((cartItem) => {
       return cartItem.id === parseInt(cartItemId);
     });
-
     // if foundCartItem has obj(item) increment++ the qty of item(obj)
     if (foundCartItem) foundCartItem.qty++;
   }
 
+  // MINUS (-) QUANTITY LOGIC
   if (e.target.classList.contains("qtyMinusBtn")) {
     const foundCartItem = cart.find((cartItem) => {
       return cartItem.id === parseInt(cartItemId);
     });
-
     // if if foundCartItem has obj(item) & its greater then 1 then decrement-- qty of item(obj)
     if (foundCartItem && foundCartItem.qty > 1) foundCartItem.qty--;
   }
 
+  // DELETE CART ITEM LOGIC
+  // Targets the data-delitem from (cart item) html
+  const deleteitem = e.target.dataset.delitem;
+
+  if (e.target.classList.contains("delIcon")) {
+    // Remove item with matching ID by keeping all others and not matched one
+    let foundCartItem = cart.filter((cartItem) => {
+      return cartItem.id !== parseInt(deleteitem);
+    });
+    // Update cart with filtered result (excluding the deleted item)
+    cart = foundCartItem;
+  }
+
   renderUi();
   saveItems();
+});
+
+// CLEAR CART LOGIC
+cart_text.addEventListener("click", (e) => {
+  if (!e.target.classList.contains("clearCart")) return;
+  cart_container.innerHTML = "";
+  localStorage.removeItem("cart");
 });
