@@ -1,6 +1,7 @@
 const item_container = document.querySelector(".itemsList");
 const cart_container = document.querySelector(".cart-items");
 const cart_text = document.querySelector(".align");
+const cart_total = document.querySelector(".total-price");
 
 const items = [
   { id: 1, name: "Jordan Retro 3 OG", price: 200, img: "./Imgs/1.png", qty: 1 },
@@ -29,6 +30,7 @@ const items = [
   { id: 6, name: "Jordan MVP", price: 119, img: "./Imgs/6.png", qty: 1 },
 ];
 
+let totalAmount = 0;
 let cart = [];
 loadItems();
 
@@ -44,6 +46,7 @@ function loadItems() {
   // cart = [ {item1} ] no nested arrays
   cart.push(...pushedCart);
   renderUi();
+  totalPrice();
 }
 
 function saveItems() {
@@ -92,14 +95,29 @@ function renderUi() {
   cart_container.innerHTML = html;
 }
 
+function totalPrice() {
+  //reset
+  totalAmount = 0;
+
+  // loop over cart and keep adding each one price(from obj) to totalAmount
+  for (let i = 0; i < cart.length; i++) {
+    const obj = cart[i];
+    totalAmount = totalAmount + obj.price;
+  }
+
+  cart_total.innerHTML = "$" + totalAmount;
+}
+
 item_container.addEventListener("click", (e) => {
   // Ignores clicks that are not on "Add to cart" btn
   // stops event bubbling
   if (!e.target.classList.contains("card-btn")) return;
   // targets the data-id from (items) html
   const data_id = e.target.dataset.id;
+
   addItem(data_id);
   renderUi();
+  totalPrice();
   saveItems();
 });
 
@@ -137,6 +155,7 @@ cart_container.addEventListener("click", (e) => {
     });
     // Update cart with filtered result (excluding the deleted item)
     cart = foundCartItem;
+    totalPrice(); // Recalculate totalPrice
   }
 
   renderUi();
@@ -146,6 +165,8 @@ cart_container.addEventListener("click", (e) => {
 // CLEAR CART LOGIC
 cart_text.addEventListener("click", (e) => {
   if (!e.target.classList.contains("clearCart")) return;
-  cart_container.innerHTML = "";
-  localStorage.removeItem("cart");
+  cart.length = 0; //empty cart arr
+  cart_container.innerHTML = ""; // clear cart ui
+  localStorage.removeItem("cart"); // clear cart local storage
+  cart_total.innerHTML = "$" + 0; // clear total price
 });
