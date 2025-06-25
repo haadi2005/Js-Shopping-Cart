@@ -78,8 +78,8 @@ function renderUi() {
       return `<div class="item-cart">
         <img class="item-img-cart" src="${item.img}" />
         <div class="data-cart">
-          <p>${item.name}</p>
-          <p>$${item.price}</p>
+          <p class="title">${item.name}</p>
+          <p class="title">$${item.price}</p>
           <span class="qty">
             <button class="qtyMinusBtn" data-cartitemid="${item.id}">-</button>
             <p class="qty-num">${item.qty}</p>
